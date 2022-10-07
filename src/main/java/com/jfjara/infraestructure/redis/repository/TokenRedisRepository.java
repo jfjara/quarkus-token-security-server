@@ -22,4 +22,9 @@ public class TokenRedisRepository implements TokenRecoveryRepository {
     public void saveToken(String key, String token) {
         redisClient.set(key, token);
     }
+
+    @Override
+    public boolean isValidToken(final String username, final String token) {
+        return redisClient.exist(username, token);
+    }
 }

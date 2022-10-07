@@ -8,4 +8,6 @@ public interface TokenRecoveryRepository {
 
     Optional<String> getUserToken(final String username);
     void saveToken(final String key, final String token);
+
+    boolean isValidToken(final String username, final String token);
 }

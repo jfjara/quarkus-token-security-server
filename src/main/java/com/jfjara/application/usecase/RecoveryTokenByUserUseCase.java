@@ -7,7 +7,7 @@ import javax.inject.Inject;
 import java.util.Optional;
 
 @ApplicationScoped
-public class RecoveryTokenUseCase {
+public class RecoveryTokenByUserUseCase {
 
     @Inject
     private TokenRecoveryRepository tokenRecoveryRepository;

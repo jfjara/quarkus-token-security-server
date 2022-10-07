@@ -3,6 +3,8 @@ package com.jfjara.application.usecase;
 import com.jfjara.domain.repository.TokenRecoveryRepository;
 
 import javax.enterprise.context.ApplicationScoped;
+import java.io.UnsupportedEncodingException;
+import java.util.Base64;
 import java.util.UUID;
 
 @ApplicationScoped
@@ -14,10 +16,11 @@ public class GenerateNewTokenUseCase {
         this.tokenRecoveryRepository = tokenRecoveryRepository;
     }
 
-    public String execute(final String user) {
+    public String execute(final String user) throws UnsupportedEncodingException {
         var token = UUID.randomUUID().toString();
         tokenRecoveryRepository.saveToken(user, token);
-        return token;
+        token = user + ":" + token;
+        return new String(Base64.getEncoder().encode(token.getBytes("UTF8")));
     }
 
 }

@@ -4,8 +4,11 @@ import io.quarkus.redis.datasource.ReactiveRedisDataSource;
 import io.quarkus.redis.datasource.RedisDataSource;
 import io.quarkus.redis.datasource.keys.ReactiveKeyCommands;
 import io.quarkus.redis.datasource.value.ValueCommands;
+import io.smallrye.mutiny.Uni;
 
 import javax.enterprise.context.ApplicationScoped;
+import java.util.Base64;
+import java.util.List;
 import java.util.Optional;
 
 @ApplicationScoped
@@ -25,6 +28,11 @@ public class RedisClient {
             return Optional.empty();
         }
         return Optional.of(value);
+    }
+
+    public Boolean exist(final String username, final String token) {
+        Optional<String> tokenRecovered = get(username);
+        return tokenRecovered.filter(t -> t.equals(token)).isPresent();
     }
 
     public void set(String key, String value) {
